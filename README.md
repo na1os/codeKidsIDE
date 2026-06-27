@@ -17,9 +17,11 @@ Dark and light mode toggle.
 Requirements
 Python 3.8 or higher
 customtkinter
-You can install the dependency using pip:
 
+You can install the dependency using pip:
 pip install customtkinter
+
+      
 How to run
 Just execute the main file:
 
@@ -37,3 +39,5 @@ Known Issues
 The input() function doesn't work in the console because the code runs in a background thread. The lessons and templates are designed to avoid needing user input for now.
 The syntax highlighter uses regex, so it might get a bit slow if you paste a massive 1000-line file into it. It's meant for small beginner scripts.
 
+
+yt demo https://youtu.be/7BvOMH5n3bg
