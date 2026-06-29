@@ -1,14 +1,25 @@
-"""Runs Python code in a separate thread so the UI doesn't freeze"""
 import subprocess
 import sys
 import os
 import tempfile
 import threading
+import shutil
 
 
 class CodeRunner:
     def __init__(self):
         self.timeout = 30
+
+    def _get_interpreter(self):
+        # Cand faci .exe cu PyInstaller, sys.executable pointeaza catre CodeKids.exe
+        # Trebuie sa cautam python.exe real pe sistem
+        if getattr(sys, 'frozen', False):
+            python_exe = shutil.which("python") or shutil.which("python3")
+            if python_exe:
+                return python_exe
+            # Daca nu il gaseste in PATH, returnam default (va da eroare, dar macar nu deschide o fereastra noua)
+            return sys.executable
+        return sys.executable
 
     def run(self, code, filepath, callback):
         """Run code in a background thread, call callback(stdout, stderr, error_type) when done"""
@@ -39,14 +50,23 @@ class CodeRunner:
             run_path = temp_file.name
             cwd = os.path.dirname(run_path)
 
+        # Ascunde fereastra de consola neagra pe Windows cand ruleaza cod
+        startupinfo = None
+        if sys.platform == "win32":
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
+        interpreter = self._get_interpreter()
+
         try:
             result = subprocess.run(
-                [sys.executable, run_path],
+                [interpreter, run_path],
                 capture_output=True,
                 text=True,
                 timeout=timeout,
                 input="",
                 cwd=cwd,
+                startupinfo=startupinfo
             )
             callback(result.stdout, result.stderr, None)
         except subprocess.TimeoutExpired:
