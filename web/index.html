@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeKids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="css/styles.css" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <div class="logo">
+        <span class="logo-text">Code<span>Kids</span></span>
+      </div>
+      <div class="xp-bar-wrap">
+        <div class="level-badge" id="level-badge">Lvl 1</div>
+        <div class="xp-bar">
+          <div class="xp-fill" id="xp-fill"></div>
+        </div>
+        <span class="xp-text" id="xp-text">0 XP</span>
+      </div>
+      <div class="topbar-actions">
+        <a id="download-btn" class="btn btn-secondary" href="https://example.com/download-app" target="_blank">Download App</a>
+        <button class="btn btn-run" id="run-btn">Run</button>
+        <button class="btn btn-secondary" id="reset-btn">Reset</button>
+        <button class="btn btn-icon-only" id="theme-btn">T</button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
+          <button class="nav-btn active" data-panel="editor">Editor</button>
+          <button class="nav-btn" data-panel="lessons">Lessons</button>
+          <button class="nav-btn" data-panel="badges">Badges</button>
+        </nav>
+        <div class="panel hidden" id="panel-lessons">
+          <h3 class="panel-title">Your Lessons</h3>
+          <div class="lessons-progress">
+            <span class="progress-label" id="progress-label">0 / 10 lessons</span>
+          </div>
+          <div id="lessons-list" class="lessons-list"></div>
+        </div>
+        <div class="panel hidden" id="panel-badges">
+          <h3 class="panel-title">Your Badges</h3>
+          <div id="badges-grid" class="badges-grid"></div>
+        </div>
+        <div class="panel" id="panel-editor-info">
+          <h3 class="panel-title">Quick Tips</h3>
+          <div class="tips-list">
+            <div class="tip">Press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to run code</div>
+            <div class="tip">Python is case sensitive</div>
+          </div>
+          <div class="current-lesson-hint hidden" id="lesson-hint-box">
+            <h4>Hint</h4>
+            <p id="lesson-hint-text"></p>
+          </div>
+        </div>
+      </aside>
+      <main class="workspace">
+        <div class="editor-header">
+          <div class="file-tab active">main.py</div>
+          <div class="editor-status" id="editor-status">Ready</div>
+        </div>
+        <div class="editor-wrap">
+          <textarea id="code-editor"></textarea>
+        </div>
+        <div class="console">
+          <div class="console-header">
+            <span>Console</span>
+            <button class="btn-clear" id="clear-console">Clear</button>
+          </div>
+          <div class="console-body" id="console-output">
+            <div class="console-welcome">Hello! Write Python code and click Run.</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="badge-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content badge-modal-content">
+      <h2>New Badge!</h2>
+      <p class="badge-unlock-name" id="badge-unlock-name"></p>
+      <p class="badge-unlock-desc" id="badge-unlock-desc"></p>
+      <button class="btn btn-hero" id="badge-close-btn">Awesome!</button>
+    </div>
+  </div>
+
+  <div id="loading" class="loading">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  
+  <script src="js/lessons.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/runner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
