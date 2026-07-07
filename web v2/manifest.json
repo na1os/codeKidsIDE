@@ -1,0 +1,10 @@
+{
+  "name": "CodeKids Python IDE",
+  "short_name": "CodeKids",
+  "description": "Learn Python through play",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#5eead4",
+  "icons": []
+}
